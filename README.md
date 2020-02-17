@@ -1,3 +1,7 @@
+## Justin Boggs
+## SMU Data Science Cohort
+## 20-02-16
+
 # SQLAlchemy Homework - Surfs Up!
 
 ### Before You Begin

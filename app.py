@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
@@ -70,9 +71,14 @@ def station():
 
 @app.route("/api/v1.0/tobs")
 def tobs():
-    return (
-        f"One"
-    )
+    session = Session(engine)
+
+    new_df2 = session.query(Measurement.station, Measurement.tobs).filter(Measurement.date >= '2016-08-23').filter(Measurement.station == 'USC00519281').all()
+
+    session.close()
+
+    return jsonify(new_df2)
+
 
 
 @app.route("/api/v1.0/2017-08-13")

@@ -83,20 +83,25 @@ def tobs():
 
 @app.route("/api/v1.0/2017-08-13")
 def first():
-    return (
-        f"One"
-    )
+    session = Session(engine)
 
+    averages = [func.min(Measurement.tobs), func.max(Measurement.tobs), func.avg(Measurement.tobs)]
+    start_date = session.query(*averages).filter(Measurement.date >= "2017-08-23").all()
+
+    session.close()
+
+    return jsonify(start_date)
 
 @app.route("/api/v1.0/2017-08-13/2017-08-23")
 def second():
-    return (
-        f"One"
-    )
+    session = Session(engine)
 
+    averages2 = [func.min(Measurement.tobs), func.max(Measurement.tobs), func.avg(Measurement.tobs)]
+    start_end = session.query(*averages2).filter(Measurement.date >= "2017-08-23").all()
 
+    session.close()
 
-
+    return jsonify(start_end)
 
 if __name__ == "__main__":
     app.run(debug=True)
